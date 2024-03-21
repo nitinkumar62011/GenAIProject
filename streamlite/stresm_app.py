@@ -87,6 +87,40 @@ time.sleep(2)
 for i in  range(100):
     my_bar.progress(i+1)
     latest_iteration.text(f'Iteration :{1+i}')
-    time.sleep(.2)
+    time.sleep(.00000001)
 st.write('we are done :+2:')
+
+'Seesion state'
+st.title("streamlit seesion state")
+st.write(st.session_state)
+if 'counter' not in st.session_state:
+    st.session_state['counter']=0
+else:
+    st.session_state.counter+=1
     
+st.write(f'Counter :{st.session_state.counter}')
+
+button=st.button('Update state')
+if 'click' not in st.session_state:
+    st.session_state['click']=0
+else:
+    st.session_state.click+=1
+f'Update {st.session_state.click}'
+
+number=st.slider('Value',1,20,key='myValue')
+st.write(st.session_state)
+
+'callable  function'
+def miles_to_km():
+    st.session_state.km=st.session_state.miles*1.69
+    
+def km_to_miles():
+    st.session_state.miles=st.session_state.km*0.621
+    
+st.subheader("Distance converter")
+
+col1,buff,col2=st.columns([2,1,2])
+with col1:
+    miles=st.number_input('Miles :',key='miles',on_change=miles_to_km)
+with col2:
+    km=st.number_input('Km :',key='km',on_change=km_to_miles)
